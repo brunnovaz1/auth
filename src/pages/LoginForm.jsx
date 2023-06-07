@@ -15,7 +15,7 @@ export default function LoginForm(props) {
       message: 'Email é obrigatorio',
     },
     pattern: {
-      value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+      value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, //expressão regular de validação de email
       message: 'Email inválido',
     }
   }
@@ -31,10 +31,16 @@ export default function LoginForm(props) {
     }
   }
 
-  function onSubmit(data) {
+  async function onSubmit(data) { //chama o handle login, tbm deve ser assincrono
     const { email, senha } = data;
-    handleLogin(email, senha)
-    navigate("/")
+    setErrorLogin("") //estado do formulario para retorno de erro
+    try {
+      await handleLogin(email, senha)
+      navigate("/") //url de direcionamento após login com sucesso
+    }catch (error) {
+      setErrorLogin(error.message)
+    }
+
   }
 
   return (
