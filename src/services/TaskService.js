@@ -2,10 +2,16 @@
 import {urlApi} from "./FirebaseConfig"
 
 export async function listaTarefas(){
-  await  fetch(urlApi)
+    let tarefas =[]                       /*  novo */
+    await  fetch(urlApi)               
     .then((response)=> response.json())
-    .then((data) => console.log(data))
+    .then((data) => {      /*  novo */
+        for(let key in data){      /*  novo */
+            tarefas.push({key, ...data[key]})
+        }
+    })
     .catch((error) => {throw Error("Deu ruim")})
+    return tarefas
 }
 
 export async function insereTarefa(tarefa){
