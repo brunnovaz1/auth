@@ -1,9 +1,14 @@
 
 import {urlApi} from "./FirebaseConfig"
 
+
+
+
+//GET para listar
+
 export async function listaTarefas(){
     let tarefas =[]                       /*  novo */
-    await  fetch(urlApi)               
+    await  fetch(urlApi + "tarefas.json")               
     .then((response)=> response.json())
     .then((data) => {      /*  novo */
         for(let key in data){      /*  novo */
@@ -14,13 +19,44 @@ export async function listaTarefas(){
     return tarefas
 }
 
+
+
+
+
+//POST  criar, inserir
+
 export async function insereTarefa(tarefa){
-   await fetch(urlApi, {
+   await fetch(urlApi + "tarefas.json",{
         method: "POST",
         body: JSON.stringify(tarefa),
         headers:{
-            'Content-type': 'application/json'
-        }
+            'Content-type': 'application/json'}
+        
     })
-    .catch((error)=> {throw Error("Deu ruim")})
+    .catch((error) => {throw Error("Deu ruim")})
+}
+
+//PUT alterar, modificar
+export async function modificaTarefa(tarefa){
+    await fetch(urlApi + "tarefas/" + tarefa.key + ".json",{
+         method: "PUT",
+         body: JSON.stringify(tarefa),
+         headers:{'Content-type': 'application/json'}    
+     })
+     .catch((error) => {throw Error("Deu ruim")})
+ }
+ 
+
+
+
+
+
+//DELETE destruir, remover
+
+export async function removeTarefa(key){
+    await fetch(urlApi+ "tarefas/" + key + ".json", {
+        method:'DELETE'
+    })
+
+.catch((error) => {throw Error("Deu ruim")})
 }
