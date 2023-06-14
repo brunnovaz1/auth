@@ -19,6 +19,7 @@ export default function App() {
           <Route element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="novo" element={<Novo />} />
+            <Route path="editar/:key" element={<Editar />} />
             <Route path="perfil/:id" element={<Perfil />} />
           </Route>
           : <Route index element={<Login />} />}

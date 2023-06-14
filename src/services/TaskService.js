@@ -40,7 +40,7 @@ export async function insereTarefa(tarefa){
 export async function modificaTarefa(tarefa){
     await fetch(urlApi + "tarefas/" + tarefa.key + ".json",{
          method: "PUT",
-         body: JSON.stringify(tarefa),
+         body: JSON.stringify({nome: tarefa.nome, prioridade: tarefa.prioridade}),
          headers:{'Content-type': 'application/json'}    
      })
      .catch((error) => {throw Error("Deu ruim")})
