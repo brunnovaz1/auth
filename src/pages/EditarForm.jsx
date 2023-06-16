@@ -11,7 +11,7 @@ export default function EditarForm() {
   async function onSubmit(data){           
     try{
       await modificaTarefa(data)     /* chamar a taskService*/
-      navigate("/")                /* depois navegar para Home */
+      navigate('/')                /* depois navegar para Home */
     } catch(error){
       console.log(error.message)
     }
@@ -20,6 +20,7 @@ export default function EditarForm() {
  return(
   <>
   <form onSubmit={handleSubmit(onSubmit)}>
+      <input type="hidden" {...register("key")} value={key} />
       <div>
           <label>Nome da Tarefa</label>
           <input type='text' {...register("nome")}/>

@@ -13,7 +13,7 @@ const UserContext = createContext({
 
 export function UserContextProvider(props) {
 
-  const [currentUser, setCurrentUser] = useState({ userId: null, logado: true })
+  const [currentUser, setCurrentUser] = useState({ userId: null, logado: true })   /*  nao pede login */
 
   async function handleLogin(email, senha) { //tudo o que estiver relacionado a uma função originalmente assincrona deverá ser tbm assincrona
     try { //se correto

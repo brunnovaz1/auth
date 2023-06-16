@@ -7,6 +7,7 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Novo from './pages/Novo'
 import Perfil from './pages/Perfil'
+import Editar from './pages/Editar'
 import './App.css'
 
 export default function App() {

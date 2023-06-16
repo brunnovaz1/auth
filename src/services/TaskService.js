@@ -7,11 +7,11 @@ import {urlApi} from "./FirebaseConfig"
 //GET para listar
 
 export async function listaTarefas(){
-    let tarefas =[]                       /*  novo */
+    let tarefas =[]                       
     await  fetch(urlApi + "tarefas.json")               
     .then((response)=> response.json())
-    .then((data) => {      /*  novo */
-        for(let key in data){      /*  novo */
+    .then((data) => {      
+        for(let key in data){      
             tarefas.push({key, ...data[key]})
         }
     })
@@ -39,7 +39,7 @@ export async function insereTarefa(tarefa){
 //PUT alterar, modificar
 export async function modificaTarefa(tarefa){
     await fetch(urlApi + "tarefas/" + tarefa.key + ".json",{
-         method: "PUT",
+         method: 'PUT',
          body: JSON.stringify({nome: tarefa.nome, prioridade: tarefa.prioridade}),
          headers:{'Content-type': 'application/json'}    
      })
