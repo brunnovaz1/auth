@@ -1,9 +1,10 @@
 import { createContext, useState } from "react";
 import {
   insereTarefa,
+  modificaTarefa,
   listaTarefas,
   removeTarefa,
-} from "../services/TaskService";
+} from "../services/FirestoreService";
 
 const TaskContext = createContext({
   tarefas: [],
@@ -36,6 +37,7 @@ export function TaskContextProvider(props) {
   async function remover(key) {
     try {
       await removeTarefa(key);
+      setMinhasTarefas((valorAntigo) => valorAntigo.filter((item) => item.key != key))
     } catch (error) {
       throw Error(error.message);
     }
