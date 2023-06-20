@@ -10,11 +10,8 @@ export default function EditarForm() {
   const {key} = useParams()
   const {tarefas, modificaTarefa} = useContext(TaskContext)
   const tarefa = tarefas.find((item) => item.key == key)
-  const {register, handleSubmit} = useForm({
-    defaultValues:{
-      key: tarefa.key,
-      nome: tarefa.nome
-  }})
+  
+  const {register, handleSubmit} = useForm()
   
 
   async function onSubmit(data){           
@@ -30,17 +27,17 @@ export default function EditarForm() {
  return(
   <>
   <form onSubmit={handleSubmit(onSubmit)}>
-      <input type="hidden" {...register("key")} />
+      <input type="hidden" {...register("key")} value={key} />
       <div>
           <label>Nome da Tarefa</label>
-          <input type='text' {...register("nome")} />
+          <input type='text' {...register("nome")} defaultValue={tarefa.nome}/>
       </div>
       <div>
       <label>Prioridade</label>
-      <select {...register("prioridade")}>
-          <option selected={tarefa.prioridade == 1}value="1">Urgente</option>
-          <option selected={tarefa.prioridade == 2}value="2">Importante</option>
-          <option selected={tarefa.prioridade == 3}value="3">Normal</option>
+      <select {...register("prioridade")} defaultValue={tarefa.prioridade}>
+          <option value="1">Urgente</option>
+          <option value="2">Importante</option>
+          <option value="3">Normal</option>
       </select>
       </div>
       <button>Salvar</button>
