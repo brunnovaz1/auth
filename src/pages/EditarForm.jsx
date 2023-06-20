@@ -1,13 +1,22 @@
 import { useForm } from "react-hook-form"
 import { useNavigate, useParams } from "react-router-dom"
-import { modificaTarefa } from "../services/TaskService"
+import TaskContext from "../contexts/TaskContext"
+import { useContext } from "react"
+
 
 export default function EditarForm() {
-  const {register, handleSubmit} = useForm()
+  
   const navigate = useNavigate()
   const {key} = useParams()
- 
+  const {tarefas, modificaTarefa} = useContext(TaskContext)
+  const tarefa = tarefas.find((item) => item.key == key)
+  const {register, handleSubmit} = useForm({
+    defaultValues:{
+      key: tarefa.key,
+      nome: tarefa.nome
+  }})
   
+
   async function onSubmit(data){           
     try{
       await modificaTarefa(data)     /* chamar a taskService*/
@@ -17,20 +26,21 @@ export default function EditarForm() {
     }
  }
  
+ 
  return(
   <>
   <form onSubmit={handleSubmit(onSubmit)}>
-      <input type="hidden" {...register("key")} value={key} />
+      <input type="hidden" {...register("key")} />
       <div>
           <label>Nome da Tarefa</label>
-          <input type='text' {...register("nome")}/>
+          <input type='text' {...register("nome")} />
       </div>
       <div>
       <label>Prioridade</label>
       <select {...register("prioridade")}>
-          <option value="1">Urgente</option>
-          <option value="2">Importante</option>
-          <option value="3">Normal</option>
+          <option selected={tarefa.prioridade == 1}value="1">Urgente</option>
+          <option selected={tarefa.prioridade == 2}value="2">Importante</option>
+          <option selected={tarefa.prioridade == 3}value="3">Normal</option>
       </select>
       </div>
       <button>Salvar</button>
